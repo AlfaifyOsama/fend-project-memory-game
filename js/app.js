@@ -12,28 +12,19 @@ const restartBtn = document.querySelector(".restart");
 const movesContainer = document.querySelector(".moves");
 const starContainer  = document.querySelector(".stars");
 const congratsDesc = document.querySelector('#congratsDesc');
-const timer = document.querySelector('.timer');
 const congratsContainer = document.querySelector('.congratsContainer').style;
 const gameContainer = document.querySelector('.container').style;
 const playAgainBtn = document.querySelector('.playAgainBtn');
-let currentTimer= null;
-let second = 0;
-let Msecond = 0;
+const title = document.querySelector('#pageTime');
+let timerInterval = null;
 let openCards = [];
 let matchedCards = [];
+let timer = 0;
+let stars=3;
 
-    function isOver() {
-        if(matchedCards.length === icons.length) {
-            stopTimer();
-            congratsDesc.innerHTML = `You won the game in ${second}:${Msecond} seconds with ${moves} moves and ${stars} stars, Challenge your friends!`;
-            gameContainer.display = 'none';
-            congratsContainer.display = 'flex';
-        }
 
-    }
 
     function init() {
-
         for(let icon in icons) {
             const card = document.createElement("li");
             card.classList.add("card");
@@ -41,16 +32,15 @@ let matchedCards = [];
             cardContainer.appendChild(card);
             click(card);
         }
+        startTimer();
     }
 
 
     // Click Event
     function click (card) {
        card.addEventListener("click",function () {
-           startTimer();
            const currentCard = this;
            const previousCard = openCards[0];
-
            // We have an existing OPENED card.
            if( openCards.length === 1){
                card.classList.add("open","show","disable");
@@ -65,7 +55,6 @@ let matchedCards = [];
                openCards.push(this);
 
            }
-
        });
 
    }
@@ -94,11 +83,11 @@ let matchedCards = [];
 
    restartBtn.addEventListener("click", function () {
        cardContainer.innerHTML = "";
-       stopTimer();
        init();
        matchedCards = [];
        moves = 0;
        movesContainer.innerHTML = moves;
+       stopTimer();
        starContainer.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
    });
 
@@ -125,31 +114,30 @@ starContainer.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa f
         }
     }
 
-let stars=3;
-
-    function setTimer () {
-        timer.innerHTML = `<i class='fa fa-clock-o'></i> ${second}:${Msecond}`;
-        Msecond++;
-        if (Msecond <= 9) {
-            Msecond = '0' + Msecond;
-        }
-        if (Msecond === 60) {
-            second++;
-            Msecond = 0;
-            if(second<=9){
-                second = '0' +second;
-            }
-        }
-    }
-
     function startTimer() {
-           currentTimer = setInterval(setTimer, 1000);
+        timer = 0;
+        timerInterval = setInterval(function() {
+            timer = timer + 1;
+            title.innerHTML = timer;
+        }, 1000);
     }
 
     function stopTimer() {
-        clearInterval(currentTimer);
-    }
+        clearInterval(timerInterval);
+        timerInterval = null;
+        title.innerHTML = 'Matching Game';
 
+    }
+    function isOver() {
+        if(matchedCards.length === icons.length) {
+            stopTimer();
+            congratsDesc.innerHTML = `You won the game in ${timer} seconds with ${moves} moves and ${stars} stars, Challenge your friends!`;
+            gameContainer.display = 'none';
+            congratsContainer.display = 'flex';
+
+        }
+
+    }
     playAgainBtn.addEventListener('click', function () {
         const gameContainer = document.querySelector('.container').style;
         const congratsContainer = document.querySelector('.congratsContainer').style;
