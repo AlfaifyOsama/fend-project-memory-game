@@ -22,8 +22,7 @@ let matchedCards = [];
 let timer = 0;
 let stars=3;
 
-
-
+//this func intt all cards and call start time func
     function init() {
         for(let icon in icons) {
             const card = document.createElement("li");
@@ -36,7 +35,7 @@ let stars=3;
     }
 
 
-    // Click Event
+    // Click Event func
     function click (card) {
        card.addEventListener("click",function () {
            const currentCard = this;
@@ -59,6 +58,7 @@ let stars=3;
 
    }
 
+   // this func work on comparing part between two cards
    function compare(currentCard, previousCard) {
        if(currentCard.innerHTML === previousCard.innerHTML){
            currentCard.classList.add("match");
@@ -73,20 +73,22 @@ let stars=3;
            setTimeout(function () {
                currentCard.classList.remove("open","show","disable");
                previousCard.classList.remove("open","show","disable");
-               openCards = [];
-           },300);
 
+           },300);
+            openCards = [];
 
        }
        addMove();
    }
 
+   // When the restart button clicked
    restartBtn.addEventListener("click", function () {
        cardContainer.innerHTML = "";
        init();
        matchedCards = [];
        moves = 0;
        movesContainer.innerHTML = moves;
+       openCards =[];
        stopTimer();
        starContainer.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
    });
@@ -94,6 +96,7 @@ let stars=3;
 let moves = 0;
 movesContainer.innerHTML = 0;
 
+// count number of moves
     function addMove() {
         moves++;
         movesContainer.innerHTML = moves;
@@ -104,6 +107,7 @@ movesContainer.innerHTML = 0;
 
 starContainer.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
 
+    // rating func that rate user's moves with stars depending on some logic
     function rating() {
     if(moves>10 && moves<12 ){
         starContainer.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
@@ -128,6 +132,8 @@ starContainer.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa f
         title.innerHTML = 'Matching Game';
 
     }
+
+    //this func work after all cards matched
     function isOver() {
         if(matchedCards.length === icons.length) {
             stopTimer();
@@ -138,6 +144,8 @@ starContainer.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa f
         }
 
     }
+
+    //func work when user click on play again button
     playAgainBtn.addEventListener('click', function () {
         const gameContainer = document.querySelector('.container').style;
         const congratsContainer = document.querySelector('.congratsContainer').style;

@@ -1,4 +1,4 @@
-This game is a required project in Udacity's Front-End Nanodegree Program. it was developed by Osama Aloqaily, https://github.com/OsamaAlfaify
+This game is a required project in Udacity's Front-End Nanodegree Program. it was developed by Osama Alfaify,
 
 Instructions:
 
@@ -9,3 +9,14 @@ If the last two cards you chose matches, The two cards will flip indicating a co
 If not, you will have half a second to see them then they will be covered again.
 Match all cards to win!
 There is a star rating and moves counter to keep track of how well you did!
+
+For a demo, check out !
+
+https://github.com/OsamaAlfaify
+
+1)Open this link apove. 2)Clone the diractory. 3)Open the file using Python IDLE or any IDLE do you prefer. 4)Go to the entertainment_center.py 5)press the run button.
+Resources used to create the game:
+Array shuffle:
+http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+Timer
+https://www.w3schools.com/howto/howto_js_countdown.asp
